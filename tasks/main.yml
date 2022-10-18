@@ -1,0 +1,24 @@
+---
+- name: include variables
+  include_role:
+    name: lihas_variables
+  when: configspaces is not defined
+- name: install haproxy
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - haproxy
+  loop_control:
+    loop_var: item
+
+# setup haproxy
+- name: haproxy base configuration
+  copy:
+    dest: "{{ item }}"
+    src: "files/{{ item }}"
+  loop:
+    - "/etc/haproxy/haproxy.cfg"
+  loop_control:
+    loop_var: item
+  notify: reload_haproxy
