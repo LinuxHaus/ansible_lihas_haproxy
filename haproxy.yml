@@ -1,5 +1,6 @@
 ---
-- hosts: '*'
+- name: Run lihas_haproxy
+  hosts: '*'
   roles:
     - lihas_haproxy
 ...
